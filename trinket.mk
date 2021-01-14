@@ -340,6 +340,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sensors/hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/hals.conf
 
+# Soong
+PRODUCT_SOONG_NAMESPACES += \
+    hardware/qcom/media \
+    hardware/qcom/display \
+    vendor/qcom/opensource/audio-hal/primary-hal
+
 # TextClassifier
 PRODUCT_PACKAGES += \
     textclassifier.bundle1
