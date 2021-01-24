@@ -1440,8 +1440,8 @@ case "$target" in
                 echo 0 > /sys/module/lpm_levels/parameters/sleep_disabled
 
                 # HMP scheduler (big.Little cluster related) settings
-                echo 75 > /proc/sys/kernel/sched_upmigrate
-                echo 60 > /proc/sys/kernel/sched_downmigrate
+                echo 85 > /proc/sys/kernel/sched_upmigrate
+                echo 75 > /proc/sys/kernel/sched_downmigrate
 
                 # cpu idle load threshold
                 echo 30 > /sys/devices/system/cpu/cpu0/sched_mostly_idle_load
@@ -2223,7 +2223,7 @@ case "$target" in
             echo 1 > /sys/devices/system/cpu/cpu0/online
             echo "schedutil" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
             echo 0 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/rate_limit_us
-            echo 1363200 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/hispeed_freq
+            echo 1612800 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/hispeed_freq
             #default value for hispeed_load is 90, for sdm632 it should be 85
             echo 85 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/hispeed_load
             # sched_load_boost as -6 is equivalent to target load as 85.
@@ -2245,8 +2245,8 @@ case "$target" in
             echo -6 > /sys/devices/system/cpu/cpu7/sched_load_boost
             echo -6 > /sys/devices/system/cpu/cpu6/sched_load_boost
 
-            echo 614400 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-            echo 633600 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
+            echo 1017600 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+            echo 902400 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
 
             # cpuset settings
             echo 0-3 > /dev/cpuset/background/cpus
