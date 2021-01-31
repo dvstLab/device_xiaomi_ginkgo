@@ -27,6 +27,8 @@ $(call inherit-product, device/xiaomi/ginkgo/device.mk)
 TARGET_BOOT_ANIMATION_RES := 1080
 $(call inherit-product, vendor/cygnus/configs/common.mk)
 
+WITH_GAPPS := true
+
 # Device identifier
 PRODUCT_NAME := cygnus_ginkgo
 PRODUCT_DEVICE := ginkgo
