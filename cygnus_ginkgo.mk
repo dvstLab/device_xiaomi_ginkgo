@@ -28,6 +28,7 @@ TARGET_BOOT_ANIMATION_RES := 1080
 $(call inherit-product, vendor/cygnus/configs/common.mk)
 
 WITH_GAPPS := true
+CYGNUS_BUILD_TYPE := OFFICIAL
 
 # Device identifier
 PRODUCT_NAME := cygnus_ginkgo
