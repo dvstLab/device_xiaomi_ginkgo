@@ -64,5 +64,11 @@
       "repository":"LineageOS/android_external_ant-wireless_antradio-library",
       "target_path":"external/ant-wireless/antradio-library",
       "branch":"lineage-18.1"
-   }
+   },
+    {
+        "remote":       "github",
+        "repository":   "LineageOS/android_packages_resources_devicesettings",
+        "target_path":  "packages/resources/devicesettings",
+        "revision":     "lineage-18.1"
+    }
 ]
