@@ -39,8 +39,8 @@ PRODUCT_MANUFACTURER := Xiaomi
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 
 # Fingerprint
-BUILD_FINGERPRINT := google/redfin/redfin:11/RQ1A.201205.010/6953398:user/release-keys
-BUILD_DESCRIPTION := redfin-user 11 RQ1A.201205.010 6953398 release-keys
+BUILD_FINGERPRINT := google/redfin/redfin:11/RD1A.201105.003/6886239:user/release-keys
+BUILD_DESCRIPTION := ginkgo-user 11 RKQ1.201004.002 21.2.4 release-keys
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.fingerprint=$(BUILD_FINGERPRINT)
