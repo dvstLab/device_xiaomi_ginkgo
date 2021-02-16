@@ -1,1 +1,4 @@
-set_prop(init, vendor_camera_prop)
+allow init bt_firmware_file:filesystem getattr;
+allow init firmware_file:filesystem getattr;
+allow init vendor_file:file execute;
+allow init adsprpcd_file:file mounton;
