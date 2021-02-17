@@ -1,13 +1,13 @@
 #
-# Copyright (C) 2020 Wave-OS
+# Copyright (C) 2020 Cygnus OS
 #
 # SPDX-License-Identifier: Apache-2.0
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/wave_ginkgo.mk
+    $(LOCAL_DIR)/cygnus_ginkgo.mk
 
 COMMON_LUNCH_CHOICES := \
-    wave_ginkgo-user \
-    wave_ginkgo-userdebug \
-    wave_ginkgo-eng
+    cygnus_ginkgo-user \
+    cygnus_ginkgo-userdebug \
+    cygnus_ginkgo-eng
