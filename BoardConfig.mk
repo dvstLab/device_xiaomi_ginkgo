@@ -1,12 +1,11 @@
 #
 # Copyright (C) 2018-2019 The LineageOS Project
-# Copyright (C) 2020 Paranoid Android
+# Copyright (C) 2020 Cygnus OS
 #
 # SPDX-License-Identifier: Apache-2.0
 #
 
-BOARD_VENDOR := xiaomi
-COMMON_PATH := device/xiaomi/trinket-common
+DEVICE_PATH := device/xiaomi/ginkgo
 
 # Architecture
 TARGET_ARCH := arm64
@@ -29,16 +28,6 @@ BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 BUILD_BROKEN_VINTF_PRODUCT_COPY_FILES := true
 BUILD_BROKEN_PREBUILT_ELF_FILES := true
 
-# Bootloader
-TARGET_BOOTLOADER_BOARD_NAME := trinket
-TARGET_NO_BOOTLOADER := true
-
-# Platform
-BOARD_USES_QCOM_HARDWARE := true
-TARGET_BOARD_PLATFORM := trinket
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno610
-TRINKET := trinket
-
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "qualcomm-hidl"
 
@@ -46,6 +35,7 @@ BOARD_ANT_WIRELESS_DEVICE := "qualcomm-hidl"
 DEXPREOPT_GENERATE_APEX_IMAGE := true
 
 # Audio
+TARGET_PROVIDES_AUDIO_EXTNS := true
 AUDIO_FEATURE_ENABLED_COMPRESS_VOIP := true
 AUDIO_FEATURE_ENABLED_EXTENDED_COMPRESS_FORMAT := true
 AUDIO_FEATURE_ENABLED_EXTN_FORMATS := true
@@ -55,11 +45,18 @@ AUDIO_FEATURE_ENABLED_PROXY_DEVICE := true
 USE_CUSTOM_AUDIO_POLICY := 1
 USE_XML_AUDIO_POLICY_CONF := 1
 
+# Assert
+TARGET_OTA_ASSERT_DEVICE := ginkgo,willow
+
 # Bluetooth
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(COMMON_PATH)/bluetooth/include
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth/include
 BOARD_HAVE_BLUETOOTH_QCOM := true
 TARGET_FWK_SUPPORTS_FULL_VALUEADDS := true
 TARGET_USE_QTI_BT_STACK := true
+
+# Bootloader
+TARGET_BOOTLOADER_BOARD_NAME := trinket
+TARGET_NO_BOOTLOADER := true
 
 # Camera
 TARGET_NEEDS_RAW10_BUFFER_FIX := true
@@ -80,6 +77,7 @@ endif
 endif
 
 # Display
+TARGET_SCREEN_DENSITY := 440
 TARGET_HAS_WIDE_COLOR_DISPLAY := true
 TARGET_USES_DRM_PP := true
 TARGET_USES_HWC2 := true
@@ -91,8 +89,11 @@ TARGET_USES_GRALLOC4 := true
 # DRM
 TARGET_ENABLE_MEDIADRM_64 := true
 
+# DT2W
+TARGET_TAP_TO_WAKE_NODE := "/sys/touchpanel/double_tap"
+
 # Filesystem
-TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/configs/fs/config.fs
+TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/configs/fs/config.fs
 
 # FM
 BOARD_HAVE_QCOM_FM := true
@@ -105,10 +106,19 @@ LOC_HIDL_VERSION := 3.0
 
 # HIDL
 DEVICE_FRAMEWORK_MANIFEST_FILE := $(COMMON_PATH)/configs/hidl/framework_manifest.xml
-DEVICE_MANIFEST_FILE := $(COMMON_PATH)/configs/hidl/manifest.xml
-DEVICE_MATRIX_FILE := $(COMMON_PATH)/configs/hidl/compatibility_matrix.xml
+DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/configs/hidl/manifest.xml
+ODM_MANIFEST_WILLOW_FILES := $(DEVICE_PATH)/configs/hidl/manifest_willow.xml
+ODM_MANIFEST_SKUS += willow
+DEVICE_MATRIX_FILE := $(DEVICE_PATH)/configs/hidl/compatibility_matrix.xml
+
+# Init
+TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_ginkgo
+TARGET_RECOVERY_DEVICE_MODULES := libinit_ginkgo
 
 # Kernel
+TARGET_KERNEL_SOURCE := kernel/xiaomi/ginkgo
+TARGET_KERNEL_CONFIG := silont-perf_defconfig
+
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom androidboot.console=ttyMSM0 androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=1 earlycon=msm_geni_serial,0x4a90000 loop.max_part=16 androidboot.init_fatal_reboot_target=recovery
 #BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
@@ -134,7 +144,17 @@ TARGET_LMKD_STATS_LOG := true
 # Media
 TARGET_USES_MEDIA_EXTENSIONS := true
 
+# NFC
+TARGET_USES_NQ_NFC := true
+
 # Partitions
+BOARD_CACHEIMAGE_PARTITION_SIZE := 402653184
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_DTBOIMG_PARTITION_SIZE := 25165824
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 4831838208
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 52554612224
+BOARD_VENDORIMAGE_PARTITION_SIZE := 1610612736
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 0x04000000
 BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
@@ -145,12 +165,22 @@ TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
+# Platform
+BOARD_USES_QCOM_HARDWARE := true
+TARGET_BOARD_PLATFORM := trinket
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno610
+TRINKET := trinket
+
 # Properties
-TARGET_SYSTEM_PROP += $(COMMON_PATH)/system.prop
-TARGET_VENDOR_PROP += $(COMMON_PATH)/vendor.prop
+TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
+TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 
 # Recovery
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+
+# Releasetools
+TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)
 
 # RIL
 ENABLE_VENDOR_RIL_SERVICE := true
@@ -158,9 +188,9 @@ TARGET_USES_PRE_UPLINK_FEATURES_NETMGRD := true
 
 # Sepolicy
 include device/qcom/sepolicy_vndr/SEPolicy.mk
-BOARD_PLAT_PRIVATE_SEPOLICY_DIR += $(COMMON_PATH)/sepolicy/private
-BOARD_PLAT_PUBLIC_SEPOLICY_DIR += $(COMMON_PATH)/sepolicy/public
-BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor
+BOARD_PLAT_PRIVATE_SEPOLICY_DIR += $(DEVICE_PATH)/sepolicy/private
+BOARD_PLAT_PUBLIC_SEPOLICY_DIR += $(DEVICE_PATH)/sepolicy/public
+BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
 SELINUX_IGNORE_NEVERALLOWS := true
 
 # Treble
@@ -192,4 +222,4 @@ WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # Inherit from the proprietary version
--include vendor/xiaomi/trinket-common/BoardConfigVendor.mk
+-include vendor/xiaomi/ginkgo/BoardConfigVendor.mk
