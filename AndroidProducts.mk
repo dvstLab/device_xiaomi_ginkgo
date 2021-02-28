@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2020 Wave-OS
+# Copyright (C) 2020 Cygnus OS
 #
 # SPDX-License-Identifier: Apache-2.0
 #
